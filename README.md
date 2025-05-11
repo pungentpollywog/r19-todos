@@ -1,5 +1,20 @@
 # MERN Micro-services containerized with Docker
 
+## Setup
+
+This uses Gemini Web AI's API to come up with suggestions for additional TODOs. You'll need to [create a Gemini API key](https://ai.google.dev/gemini-api/docs/api-key) and add it to a `.env` file that you add to the `todos-19-fe-app` root folder. With contents simlar to the following. Note: your API will be on the right of the assignment.
+
+```bash
+VITE_GEMINI_API_KEY=YourApiKeyGoesHere
+```
+
+Docker compose assumes the existence of this file. If you don't plan to use it, just comment out the follow lines in `compose.yml`.
+
+```yml
+    env_file:
+      - ./todos-19-fe-app/.env
+```
+
 ## Compose
 
 ### Start up all services
@@ -51,6 +66,10 @@ However, if you want to manually rebuild to pick up other changes (e.g. client),
 To completely rebuild without relying on cached steps, run ...
 
 `docker compose build --no-cache server && docker compose up server -d`
+
+To bring all the containers down and rebuild them without caching, run ...
+
+`docker compose down && docker compose build --no-cache && docker compose up -d`
 
 ### Checking logs
 
