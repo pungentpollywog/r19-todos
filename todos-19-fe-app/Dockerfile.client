@@ -1,0 +1,17 @@
+FROM node:lts-slim AS build
+
+WORKDIR /code
+
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install 
+
+COPY . .
+RUN npm run build 
+
+FROM nginx:stable-alpine AS prod 
+# COPY --from=build /code/public /usr/share/nginx/html/
+COPY --from=build /code/dist /usr/share/nginx/html/
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

@@ -1,0 +1,66 @@
+services:
+  client:
+    build:
+      context: ./todos-19-fe-app
+      dockerfile: Dockerfile.client
+    ports:
+      - '5500:80'
+    env_file:
+      - ./todos-19-fe-app/.env
+    depends_on:
+      - server
+    volumes:
+      - ./todos-19-fe-app:/todos-19-fe-app:ro
+      - ./todos-19-fe-app/node_modules:/todos-19-fe-app/node_modules
+    networks:
+      - web_network
+
+  server:
+    build:
+      context: ./todos-mongoose-api
+      dockerfile: Dockerfile.server
+    ports:
+      - '3000:3000'
+    environment:
+      - MONGO_HOST=mongo
+      - MONGO_PORT=27017
+      - MONGO_DB=db
+    # environment:
+    #   - PORT=4000
+    # Username for the mongo database
+    # - MONGO_INITDB_ROOT_USERNAME=mern
+    # Password for the mongo database
+    # - MONGO_INITDB_ROOT_PASSWORD=merndocker
+    # Enables the mongo service to start before the node service
+    depends_on:
+      - mongo
+    # Need a bind mount for nodemon.
+    volumes:
+      - ./todos-mongoose-api/app.js:/todos-mongoose-api/app.js:ro
+      - ./todos-mongoose-api/node_modules:/todos-mongoose-api/node_modules
+
+    networks:
+      - web_network
+
+  mongo:
+    # Official Mongo image from docker.hub
+    image: mongo
+    restart: always
+    ports:
+      - '27017:27017'
+
+    # Username for the mongo database
+    # - MONGO_INITDB_ROOT_USERNAME=mern
+    # Password for the mongo database
+    # - MONGO_INITDB_ROOT_PASSWORD=merndocker
+    volumes:
+      - mongoDB:/data/db
+    networks:
+      - web_network
+
+volumes:
+  mongoDB:
+
+networks:
+  web_network:
+    driver: bridge

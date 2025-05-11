@@ -1,0 +1,15 @@
+.suggestions {
+  --base2: hsl(212, 70%, 85%);
+  width: min-content;
+  height: fit-content;
+  background-color: var(--base2);
+  padding: 1rem;
+  padding-top: 0.5rem;
+  border-radius: 10px;
+  h4 {
+    display: flex;
+    gap: 0.5rem;
+  }
+  box-shadow: var(--base-shadow-active);
+  // box-shadow: 5px 5px 5px var(--base3);
+}

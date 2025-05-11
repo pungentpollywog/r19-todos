@@ -1,0 +1,19 @@
+.list {
+  max-width: 30rem;
+  min-width: 15rem;
+  background-color: var(--base2);
+  padding: 1rem;
+  border-radius: 8px;
+  filter: drop-shadow(2px 4px 6px var(--base3));
+
+  li {
+    min-width: max-content;
+  }
+
+  .contents {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+}

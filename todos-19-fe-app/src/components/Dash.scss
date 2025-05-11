@@ -1,0 +1,9 @@
+.dash {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 1rem;
+  .list {
+    flex: 1 1 auto;
+  }
+}
