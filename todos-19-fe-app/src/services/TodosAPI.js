@@ -22,7 +22,7 @@ export async function createList(list) {
       'Content-type': 'application/json; charset=UTF-8',
     },
   }).then(res => {
-    console.log(res);
+    // console.log(res);
     if (res.status === 200) {
       return res.json();
     } else {
@@ -34,7 +34,7 @@ export async function createList(list) {
 export async function modifyList(list, fields) {
   const newList = {...list, ...fields};
 
-  console.log({list});
+  // console.log({list, fields});
 
   return fetch(`${listsUrl}/${list._id}`, {
     method: 'PATCH',
@@ -43,7 +43,7 @@ export async function modifyList(list, fields) {
       'Content-type': 'application/json; charset=UTF-8',
     },
   }).then(res => {
-    console.log(res);
+    // console.log(res);
     if (res.status === 200) {
       return res.json();
     } else {

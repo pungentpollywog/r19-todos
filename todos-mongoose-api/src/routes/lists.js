@@ -44,6 +44,7 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/:id', async (req, res, next) => {
+  // TODO: implement this
   res.send(JSON.stringify({ message: `got request for list with id of ${req.params.id}` }));
 });
 

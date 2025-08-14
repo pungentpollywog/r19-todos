@@ -31,14 +31,23 @@ export default function Suggestions({ items, addItem }) {
   }, [items]);
 
   function getSuggestions(items) {
+    if (!items.length) {
+      console.warn('No items. Skipping suggestions query.');
+      return;
+    }
+
     if (cachedSuggestions.current.length < 3) {
       getListSuggestions(items).then((suggestions) => {
-        setSuggestions(suggestions);
-        cachedSuggestions.current = [...suggestions];
+        if (suggestions) {
+          setSuggestions(suggestions);
+          cachedSuggestions.current = [...suggestions];
+        } else {
+          console.warn('Did not retreive suggestions.');
+        }
       });
     } else {
       setSuggestions(cachedSuggestions.current);
-    } 
+    }
   }
 
   function addSuggestion(idea) {
@@ -52,10 +61,10 @@ export default function Suggestions({ items, addItem }) {
   }
 
   return (
-    <section class="suggestions">
+    <section className="suggestions">
       <h4>
         <svg
-          class="sparkle"
+          className="sparkle"
           height="24"
           width="24"
           aria-hidden="true"
@@ -69,16 +78,18 @@ export default function Suggestions({ items, addItem }) {
         </svg>
         Suggestions
       </h4>
-      {suggestions?.map((suggestion, idx) => (
-        idx < items.length - 1 && 
-        <button
-          key={suggestion.id}
-          title="add to list"
-          onClick={() => addSuggestion(suggestion.idea)}
-        >
-          {suggestion.idea}
-        </button>
-      ))}
+      {suggestions?.map(
+        (suggestion, idx) =>
+          idx < items.length - 1 && (
+            <button
+              key={suggestion.id}
+              title="add to list"
+              onClick={() => addSuggestion(suggestion.idea)}
+            >
+              {suggestion.idea}
+            </button>
+          )
+      )}
     </section>
   );
 }

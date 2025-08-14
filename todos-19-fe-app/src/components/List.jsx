@@ -60,11 +60,11 @@ export default function List({ list, deleteList, updateList }) {
         onChange={(ev) => setTaskDesc(ev.target.value)}
         onKeyDown={addOnEnter}
       />
-      <button type="button" onClick={addTask}>
+      <button type="button" onClick={() => addTask()}>
         Add
       </button>
 
-      <article class="contents">
+      <article className="contents">
         <ul>
           {list.tasks.map((task) => (
             <li key={task._id}>

@@ -18,7 +18,6 @@ export default function Dash() {
   function fetchLists() {
     getLists()
       .then((lists) => {
-        console.log(lists);
         setLists(lists);
       })
       .catch((err) => {
@@ -66,7 +65,7 @@ export default function Dash() {
       if (resp === 'success') {
         fetchLists();
       } else {
-        console.log('Unable to delete!');
+        console.error('Unable to delete!');
       }
     });
   }
@@ -84,8 +83,8 @@ export default function Dash() {
       .then((resp) => {
         console.log(resp);
         fetchLists();
-        // TODO: just fetch the list that was updated. Then 
-        // use the result to update that one list in lists.
+        // TODO: just fetch the list that was updated using the _id in the response.  
+        // Then use the result to update that one list in lists instead of calling fetchLists.
       })
       .catch((err) => console.error(err));
   }

@@ -10,7 +10,7 @@ export async function getListSuggestions(tasks) {
   console.log({ taskListStr });
 
   if (tasks.length > 0) {
-    const prompt = `Given the following list of items, suggest some related items in the same theme: [${taskListStr}]. Return one or two word answers as a JSON array.`;
+    const prompt = `Given the following list of items, suggest some related items of the same type: [${taskListStr}]. Return one or two word answers as a JSON array.`;
 
     console.log({ prompt });
 
