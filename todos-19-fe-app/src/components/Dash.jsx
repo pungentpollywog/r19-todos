@@ -83,7 +83,7 @@ export default function Dash() {
       .then((resp) => {
         console.log(resp);
         fetchLists();
-        // TODO: just fetch the list that was updated using the _id in the response.  
+        // TODO: just fetch the list that was updated using the _id in the response.
         // Then use the result to update that one list in lists instead of calling fetchLists.
       })
       .catch((err) => console.error(err));
@@ -91,6 +91,15 @@ export default function Dash() {
 
   return (
     <>
+      <div className="controls">
+        <input
+          type="text"
+          placeholder="New list name"
+          value={listName}
+          onChange={(ev) => setListName(ev.target.value)}
+        />
+        <button onClick={addList}>Create List</button>
+      </div>
       <div className="dash">
         {lists.map((list) => (
           <List
@@ -100,15 +109,6 @@ export default function Dash() {
             updateList={updateList}
           />
         ))}
-      </div>
-      <div className="controls">
-        <input
-          type="text"
-          placeholder="New list name"
-          value={listName}
-          onChange={(ev) => setListName(ev.target.value)}
-        />
-        <button onClick={addList}>Create List</button>
       </div>
     </>
   );

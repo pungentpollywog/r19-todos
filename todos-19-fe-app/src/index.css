@@ -9,7 +9,6 @@
 
   --shadow-size: 9px;
 
-
   --base2: hsl(212, 70%, 79%); /* orig hsl(210, 25%, 80%); */
   
   --base1: hsl(from var(--base2) h s calc(l + 8));
@@ -19,7 +18,7 @@
   --baseDark2: #204566;
   --baseDark3: #152e44;
   --base: #090e10;
-  --primary1: #ffa68b;
+  --primary1: lch(97% 40.68 42.66); /* #ffa68b; */
   --primary2: #ff7145;
   --primary3: #ff3d00;
   --primaryDark1: #ba2d00;
@@ -49,6 +48,7 @@ body {
   background-color: var(--base1);
   height: calc(100vh - 2rem);
 }
+
 
 input {
   padding: 0.25rem 0.5rem;

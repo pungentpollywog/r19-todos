@@ -1,3 +1,7 @@
+.controls {
+  margin-bottom: 1rem;;
+}
+
 .dash {
   display: flex;
   width: 100%;
@@ -6,4 +10,5 @@
   .list {
     flex: 1 1 auto;
   }
+  padding-bottom: 1rem;
 }

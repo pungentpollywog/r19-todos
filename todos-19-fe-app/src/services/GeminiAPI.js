@@ -1,4 +1,5 @@
 import { GoogleGenAI } from '@google/genai';
+// @ts-ignore
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
