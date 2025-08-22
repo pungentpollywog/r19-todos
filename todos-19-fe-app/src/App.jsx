@@ -3,7 +3,7 @@ import Dash from './components/Dash';
 import Login from './routes/Login';
 
 function App() {
-  return <Dash />;
+  return <Login />;
 }
 
 export default App;
