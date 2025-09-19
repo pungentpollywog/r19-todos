@@ -1,16 +1,11 @@
 import express from 'express';
-
 import mongoose from 'mongoose';
 
 import List from '../models/List.js';
 
-const router = express.Router();
+import { mongodbURI } from '../db-constants.js';
 
-const defaultHost = '127.0.0.1'; // works with IPv4 and IPv6
-const host = process.env.MONGO_HOST ?? defaultHost;
-const port = process.env.MONGO_PORT ?? 27017;
-const database = process.env.MONGO_DB ?? 'db2';
-const uri = `mongodb://${host}:${port}/${database}`;
+const router = express.Router();
 
 router.get('/', async (req, res, next) => {
   let { limit = 10, page = 1 } = req.query;
@@ -19,7 +14,7 @@ router.get('/', async (req, res, next) => {
   const offset = (page - 1) * limit;
 
   try {
-    await mongoose.connect(uri, { serverSelectionTimeoutMS: 5000 });
+    await mongoose.connect(mongodbURI, { serverSelectionTimeoutMS: 5000 });
 
     const total = await List.estimatedDocumentCount();
     const pages = Math.ceil(total / limit);
@@ -45,12 +40,16 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   // TODO: implement this
-  res.send(JSON.stringify({ message: `got request for list with id of ${req.params.id}` }));
+  res.send(
+    JSON.stringify({
+      message: `got request for list with id of ${req.params.id}`,
+    })
+  );
 });
 
 router.post('/', async (req, res, next) => {
   try {
-    await mongoose.connect(uri, { serverSelectionTimeoutMS: 5000 });
+    await mongoose.connect(mongodbURI, { serverSelectionTimeoutMS: 5000 });
     const doc = await List.create(req.body);
     console.log(doc);
     if (doc) {
@@ -74,12 +73,16 @@ router.post('/', async (req, res, next) => {
 });
 
 router.put('/:id', async (req, res, next) => {
-  res.send(JSON.stringify({ message: `TODO: replace list with data: ${JSON.stringify(req.body)}` }));
+  res.send(
+    JSON.stringify({
+      message: `TODO: replace list with data: ${JSON.stringify(req.body)}`,
+    })
+  );
 });
 
 router.patch('/:id', async (req, res, next) => {
   try {
-    await mongoose.connect(uri, { serverSelectionTimeoutMS: 5000 });
+    await mongoose.connect(mongodbURI, { serverSelectionTimeoutMS: 5000 });
     const doc = await List.findByIdAndUpdate(req.params.id, req.body).exec();
     doc ? res.send(doc) : res.status(404).end();
   } catch (err) {
@@ -94,7 +97,7 @@ router.delete('/:id', async (req, res, next) => {
   // res.send(JSON.stringify({'message': `TODO: delete list with id: ${req.params.id}`}));
 
   try {
-    await mongoose.connect(uri, { serverSelectionTimeoutMS: 5000 });
+    await mongoose.connect(mongodbURI, { serverSelectionTimeoutMS: 5000 });
     const result = await List.deleteOne({ _id: req.params.id });
     if (result.acknowledged && result.deletedCount > 0) {
       res.status(204).end();

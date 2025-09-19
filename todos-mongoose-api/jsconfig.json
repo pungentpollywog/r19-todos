@@ -2,8 +2,6 @@
   "compilerOptions": {
     "baseUrl": "./",
     "checkJs": true,
-    "jsx": "react-jsx",
-    "lib": ["es2018", "dom", "esnext"]
   },
   "include": ["src/**/*"]
 }
