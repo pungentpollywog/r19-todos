@@ -1,0 +1,1 @@
+export const secretKey = process.env.SECRET_AUTH_KEY ?? 'TOP_SECRET';

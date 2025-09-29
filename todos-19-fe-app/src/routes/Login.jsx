@@ -1,18 +1,24 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+
+import { AuthContext } from '../context/AuthContext';
+import { login } from '../services/AuthAPI';
+
 
 import './Login.scss';
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [accessToken, setAccessToken] = useContext(AuthContext);
 
-  function doSignup() {
-    console.log('sign up with', {username, password});
+  function doLogin() {
+    console.log('login with', { username, password });
+    login({ username, password }, setAccessToken, setLoading, setError);
   }
 
-  function login() {
-        console.log('login with', {username, password});
-  }
+  console.log('Login component', error);
 
   return (
     <main className="login-page">
@@ -40,12 +46,14 @@ export default function Login() {
             />
           </p>
           <nav>
-            <button type="button" onClick={doSignup}>
-              Sign-up
-            </button>
-            <button type="button" className="primary" onClick={login}>
+
+            <button type="button" className="primary" onClick={doLogin}>
               Login
             </button>
+            {loading && <p>Logging in...</p>}
+            {accessToken && <pre>TOKEN: {JSON.stringify(accessToken)}</pre>}
+            {error && <pre>ERROR: {JSON.stringify(error.message)}</pre>}
+            {/* TODO: link to create account page */}
           </nav>
         </form>
       </section>

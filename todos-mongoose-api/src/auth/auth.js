@@ -5,7 +5,8 @@ import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
 
 import UserModel from '../models/User.js';
 
-import { mongodbURI } from '../db-constants.js';
+import { mongodbURI } from '../constants/db-constants.js';
+import { secretKey } from '../constants/auth-constants.js';
 
 passport.use(
   'signup',
@@ -53,8 +54,10 @@ passport.use(
         // @ts-ignore
         const isValid = await user.isValidPassword(password);
 
+        console.log(password, 'is valid', isValid);
+
         if (!isValid) {
-          return done(null, user, { message: 'Invalid password' });
+          return done({ message: 'Invalid password' }, user);
         }
 
         return done(null, user, { message: 'Logged in successfully' });
@@ -70,8 +73,9 @@ passport.use(
 passport.use(
   new JWTStrategy(
     {
-      secretOrKey: 'TOP_SECRET',
-      jwtFromRequest: ExtractJwt.fromUrlQueryParameter('secret_token'),
+      secretOrKey: secretKey,
+      // jwtFromRequest: ExtractJwt.fromUrlQueryParameter('auth_token'),
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     },
     async (token, done) => {
       try {

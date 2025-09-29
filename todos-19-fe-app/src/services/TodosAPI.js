@@ -1,7 +1,5 @@
-const protocol = 'http';
-const host = '127.0.0.1';
-const port = 3000;
-const baseUrl = `${protocol}://${host}:${port}`;
+import { baseUrl } from "../constants/api";
+
 const listsUrl = `${baseUrl}/lists`;
 
 export async function getLists() {

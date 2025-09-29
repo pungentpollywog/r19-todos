@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 import List from '../models/List.js';
 
-import { mongodbURI } from '../db-constants.js';
+import { mongodbURI } from '../constants/db-constants.js';
 
 const router = express.Router();
 

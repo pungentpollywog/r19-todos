@@ -20,4 +20,9 @@ router.post(
   }
  );
 
+router.use((err, req, res, next) => {
+  console.log('signup error', err);
+  res.status(403).send({ err });
+});
+
 export default router;

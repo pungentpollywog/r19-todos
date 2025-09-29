@@ -13,10 +13,13 @@ const app = express();
 const port = 3000;
 
 app.use(cors());
-
-// parse application/json
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+
+app.all('/{login}', (req, res, next) => {
+  console.log('request', req.body);
+  next();
+})
 
 app.get('/',  (req, res) => {
   res.send('Mongoose TODOs API');
