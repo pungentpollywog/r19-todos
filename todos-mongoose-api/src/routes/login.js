@@ -37,7 +37,8 @@ router.post('/', async (req, res, next) => {
 });
 
 router.use((err, req, res, next) => {
-  res.status(403).send({ err });
+  console.log('login error', err);
+  res.status(400).send({ err });
 });
 
 export default router;

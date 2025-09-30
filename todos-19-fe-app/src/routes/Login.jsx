@@ -18,6 +18,10 @@ export default function Login() {
     login({ username, password }, setAccessToken, setLoading, setError);
   }
 
+  function navToSignUp() {
+    console.log('TODO nav to sign up page');
+  }
+
   console.log('Login component', error);
 
   return (
@@ -47,13 +51,13 @@ export default function Login() {
           </p>
           <nav>
 
-            <button type="button" className="primary" onClick={doLogin}>
+            <button type="button" onClick={doLogin}>
               Login
             </button>
             {loading && <p>Logging in...</p>}
             {accessToken && <pre>TOKEN: {JSON.stringify(accessToken)}</pre>}
             {error && <pre>ERROR: {JSON.stringify(error.message)}</pre>}
-            {/* TODO: link to create account page */}
+            <p className="signup">No Account?&nbsp;<a href="#" onClick={navToSignUp}>Sign up</a></p>
           </nav>
         </form>
       </section>

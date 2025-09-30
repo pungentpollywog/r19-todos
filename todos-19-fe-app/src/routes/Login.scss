@@ -3,44 +3,47 @@ body {
   padding: 0;
 }
 
-main {
+main.login-page {
   box-sizing: border-box;
   // background-color: var(--primary1);
   background-color: var(--base1);
   padding: 5rem 0;
   height: 100vh;
-}
 
-.login {
-  background-color: var(--base2);
-  margin: auto;
-  width: 250px;
-  padding: 1rem 2.5rem 1rem 2rem;
-  border-radius: 5px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  // box-shadow: 5px 5px 15px hsl(from var(--base2) h s 70%);
+  .login {
+    background-color: var(--base2);
+    margin: auto;
+    width: 250px;
+    padding: 1rem 2.5rem 1rem 2rem;
+    border-radius: 5px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    // box-shadow: 5px 5px 15px hsl(from var(--base2) h s 70%);
     filter: drop-shadow(2px 4px 6px var(--base3));
-}
+  }
 
-h4 {
-  text-transform: uppercase;
-  font-weight: 500;
-}
+  h4 {
+    text-transform: uppercase;
+    font-weight: 500;
+  }
 
-input[type="password"],
-input[type="email"],
-input[type="text"] {
-  margin: 0.25rem 0;
-  height: 1.5rem;
-  width: 100%;
-}
+  input[type='password'],
+  input[type='email'],
+  input[type='text'] {
+    margin: 0.25rem 0;
+    height: 1.5rem;
+    width: 100%;
+  }
 
-.forgot {
-  display: flex;
-  justify-content: flex-end;
-}
+  .forgot {
+    display: flex;
+    justify-content: flex-end;
+  }
 
-
-.primary {
-  background-color: blue;
+  .signup {
+    font-size: 0.75rem;
+    margin-left: 0.25rem;
+    a {
+    color: var(--baseDark2);
+    }
+  }
 }

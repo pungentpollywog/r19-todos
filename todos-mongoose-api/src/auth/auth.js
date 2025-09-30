@@ -21,9 +21,11 @@ passport.use(
 
         await mongoose.connect(mongodbURI, { serverSelectionTimeoutMS: 5000 });
 
-        // TODO: check for existing username first?
-
-        const user = await UserModel.create({ username, password });
+        let user = await UserModel.findOne({username});
+        // Silently skip the create if the user already exists.
+        if (!user) {
+          user = await UserModel.create({ username, password });
+        }
         return done(null, user);
       } catch (error) {
         done(error);

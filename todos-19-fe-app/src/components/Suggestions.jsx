@@ -14,7 +14,7 @@ export default function Suggestions({ items, addItem }) {
   const suggestionSubject = useRef(new Subject());
 
   useEffect(() => {
-    // Throttle to get around Gemini free tier usage limits.
+    // Throttle to stay within Gemini free tier usage limits.
     const sub = suggestionSubject.current
       .pipe(throttleTime(throttleAmount))
       .subscribe((items) => {

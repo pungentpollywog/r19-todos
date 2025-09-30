@@ -26,7 +26,7 @@ export async function getListSuggestions(tasks) {
     // };
 
     const suggestions = JSON.parse(
-      resp.text?.replace('```json', '').replace('```', '') ?? []
+      resp.text?.replace('```json', '').replace('```', '') ?? ''
     );
 
     console.log('parsed JSON', suggestions);

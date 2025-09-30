@@ -86,10 +86,6 @@ button {
   box-shadow: var(--base-shadow);
 }
 
-button.primary {
-  background-color: var(--baseDark1);
-  color: var(--primary1);
-}
 
 button:hover:not([disabled]),
 button:focus:not([disabled]),

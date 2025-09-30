@@ -1,25 +1,20 @@
 import { baseUrl } from '../constants/api';
-import { useFetch } from '../hooks/useFetch';
 
-export function signup(creds) {
-  const { username, password } = creds;
-  const options = {
-    method: 'POST',
-    body: JSON.stringify({ username, password }),
-  };
-  // TODO: use fetch directly like in the login function below.
-  const { data, loading, error } = useFetch(`${baseUrl}/signup`, options);
-  console.log('signup', { data }, { loading }, { error });
+export function signup(creds, setData, setLoading, setError) {
+  submitCreds('/signup', creds, setData, setLoading, setError);
 }
 
 export function login(creds, setData, setLoading, setError) {
+  submitCreds('/login', creds, setData, setLoading, setError);
+}
+
+function submitCreds(path, creds, setData, setLoading, setError) {
   const { username, password } = creds;
 
   setLoading(true);
   setError(null);
   setData(null);
 
-  const url = `${baseUrl}/login`;
   const options = {
     method: 'POST',
     headers: {
@@ -28,20 +23,24 @@ export function login(creds, setData, setLoading, setError) {
     body: JSON.stringify({ username, password }),
   };
 
-  fetch(url, options)
+  fetch(`${baseUrl}${path}`, options)
     .then((resp) => {
       if (resp.ok) {
         return resp.json();
       } else {
-        switch (resp.status) {
-          case 403:
-            throw new Error('Unauthenticated');
-          default:
-            throw new Error('Login failed');
-        }
+        handleError(resp.status);
       }
     })
     .then((json) => setData(json))
     .catch((err) => setError(err))
     .finally(() => setLoading(false));
+}
+
+function handleError(status) {
+  switch (status) {
+    case 403:
+      throw new Error('Unauthenticated');
+    default:
+      throw new Error('Login failed');
+  }
 }

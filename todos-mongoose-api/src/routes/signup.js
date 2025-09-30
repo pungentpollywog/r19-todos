@@ -12,11 +12,14 @@ router.all('/', (req, res, next) => {
 router.post(
   '/', 
   passport.authenticate('signup', {session: false}), 
-  async (req, res, next) => {
+  async (req, res) => {
+    // @ts-ignore
+    delete req.user._doc.password;
+
     res.json({
       message: 'Signup successful',
       user: req.user
-    })
+    });
   }
  );
 

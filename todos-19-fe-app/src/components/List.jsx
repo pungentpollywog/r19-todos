@@ -9,6 +9,7 @@ import './List.scss';
 
 export default function List({ list, deleteList, updateList }) {
   const [taskDesc, setTaskDesc] = useState('');
+  const showSuggestions = true;
 
   // List handles the CRUD for tasks
   function addTask(desc = taskDesc) {
@@ -80,7 +81,7 @@ export default function List({ list, deleteList, updateList }) {
             </li>
           ))}
         </ul>
-        <Suggestions items={list.tasks} addItem={addTask} />
+        {showSuggestions && <Suggestions items={list.tasks} addItem={addTask} />}
       </article>
 
       <button onClick={deleteList}>Delete list</button>
