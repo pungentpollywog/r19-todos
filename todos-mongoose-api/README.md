@@ -31,7 +31,7 @@ cd todos-mongoose-api
 npm init   # (When prompted, specify app.js as the start file.) 
 git init
 echo ‘node_modules/’ > .gitignore
-npm install express body-parser mongoose --registry http://192.168.1.49:4873
+npm install express cors mongoose --registry http://npm.perseverenow.org/ppm/
 ```
 
 Open VSCode with: `code .`  
@@ -53,3 +53,10 @@ In your Git bash terminal, set the remote using the following command.
 git remote add origin <url>
 ```
 Then, add, commit, and push up your main branch.  
+
+## Adding/ Updating packages 
+
+For express ...
+```bash
+npm install express@latest  --registry http://npm.perseverenow.org/ppm/
+```
