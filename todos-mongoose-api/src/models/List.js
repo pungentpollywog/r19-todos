@@ -7,4 +7,4 @@ const listSchema = new Schema({
     tasks: [TaskSchema]
 });
 
-export default  model('List', listSchema);
+export default model('List', listSchema);
