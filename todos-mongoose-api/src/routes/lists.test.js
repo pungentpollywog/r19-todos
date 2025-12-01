@@ -27,7 +27,7 @@ const mockDoc = [
         _id: '2',
       },
     ],
-  },
+  }
 ];
 
 describe('List', () => {
@@ -37,10 +37,10 @@ describe('List', () => {
       .mockReturnValue({
         limit: jest.fn().mockReturnThis(),
         skip: jest.fn().mockReturnThis(),
-        exec: jest.fn().mockReturnValue(mockDoc),
+        exec: jest.fn().mockResolvedValue(mockDoc),
       });
     docCountSpy = jest.spyOn(List, 'estimatedDocumentCount')
-      .mockReturnValue(2);
+      .mockReturnValue(mockDoc.length);
 
     jest.spyOn(mongoose, 'connect').mockResolvedValue({});
     jest.spyOn(mongoose.connection, 'close').mockImplementation(() => {
@@ -56,8 +56,8 @@ describe('List', () => {
         .expect('Content-Type', /json/)
         .expect(200)
         .then((res) => {
-          // console.log(res.text);
           expect(res.statusCode).toBe(200);
+          expect(res._body.totalItems).toBe(1);
         });
     });
   });

@@ -32,7 +32,7 @@ router.get('/', async (req, res, next) => {
     console.error(err);
     res.status(500).end();
   } finally {
-    mongoose.connection.close();
+    await mongoose.connection.close();
   }
 
   // res.send(JSON.stringify({'message': 'got request for all lists'}));
@@ -62,7 +62,7 @@ router.post('/', async (req, res, next) => {
     console.error(err);
     res.status(500).end();
   } finally {
-    mongoose.connection.close();
+    await mongoose.connection.close();
   }
 
   // res.send(
@@ -82,6 +82,7 @@ router.put('/:id', async (req, res, next) => {
 
 router.patch('/:id', async (req, res, next) => {
   try {
+    // TODO: move the connect into server.js 
     await mongoose.connect(mongodbURI, { serverSelectionTimeoutMS: 5000 });
     const doc = await List.findByIdAndUpdate(req.params.id, req.body).exec();
     doc ? res.send(doc) : res.status(404).end();
@@ -89,7 +90,7 @@ router.patch('/:id', async (req, res, next) => {
     console.error(err);
     res.status(500).end();
   } finally {
-    mongoose.connection.close();
+    await mongoose.connection.close();
   }
 });
 
@@ -108,7 +109,7 @@ router.delete('/:id', async (req, res, next) => {
     console.error(err);
     res.status(500).end();
   } finally {
-    mongoose.connection.close();
+    await mongoose.connection.close();
   }
 });
 
