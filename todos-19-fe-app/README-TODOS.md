@@ -1,14 +1,24 @@
 # TODO list
 
 ## Primary TODOs
-- [ ] Add react-router 
-- [ ] Route to Login first and then to Dash
+### Frontend
+- [x] Add react-router 
+- [x] Route to Login first and then to Dash
+- [x] Store token in context
+- [x] handle authN (check if authN and route accordingly)
+- [ ] handle getting a new accessToken if manually refreshing the browser (once there is a refreshToken in place on the backend)
 - [ ] Update fetch calls for /lists CRUD to include the token
-- [ ] update backend endpoints to include the user.id when reading and writing from lists or store lists as a sub-schema on the user.
+ from lists or store lists as a sub-schema on the user.
 - [ ] add better error handling for /list in client
+### Backend
+  - [ ] move MongoDB connect to server.js
+  - [ ] add refresh token
+  - [ ] update backend endpoints to include the user.id when reading and writing
 
 ## Nice to have TODOs
+### Frontend
 - [ ] Use useOptimistic hook 
+- [ ] Suspense maybe
 
 ## TADONE
 

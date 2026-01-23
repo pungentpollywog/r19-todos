@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useLayoutEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 
 import { AuthContext } from '../context/AuthContext';
 import { login } from '../services/AuthAPI';
-
-
 import './Login.scss';
+
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -12,17 +12,21 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [accessToken, setAccessToken] = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useLayoutEffect(() => {
+    if (accessToken) {
+      navigate('/');
+    }
+  }, [accessToken]);
 
   function doLogin() {
-    console.log('login with', { username, password });
     login({ username, password }, setAccessToken, setLoading, setError);
   }
 
   function navToSignUp() {
-    console.log('TODO nav to sign up page');
+    navigate('/signup');
   }
-
-  console.log('Login component', error);
 
   return (
     <main className="login-page">

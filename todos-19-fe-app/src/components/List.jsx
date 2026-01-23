@@ -9,7 +9,7 @@ import './List.scss';
 
 export default function List({ list, deleteList, updateList }) {
   const [taskDesc, setTaskDesc] = useState('');
-  const showSuggestions = true;
+  const showSuggestions = true; // TODO: set back to true
 
   // List handles the CRUD for tasks
   function addTask(desc = taskDesc) {

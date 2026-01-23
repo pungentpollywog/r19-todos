@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { signup } from '../services/AuthAPI';
 
 import './CreateAccount.scss';
+import { useNavigate } from 'react-router';
 
 export default function CreateAccount() {
   const [username, setUsername] = useState('');
@@ -11,6 +12,7 @@ export default function CreateAccount() {
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(null);
   const disableButton = username.length === 0 || password.length === 0;
+  const navigate = useNavigate();
 
   function doSignup() {
     console.log('sign up with', { username, password });
@@ -18,7 +20,7 @@ export default function CreateAccount() {
   }
 
   function navToLogin() {
-    console.log('TODO: nav to login page');
+    navigate('/login');
   }
 
   return (

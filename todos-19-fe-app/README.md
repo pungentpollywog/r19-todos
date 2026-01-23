@@ -162,3 +162,55 @@ You can add classes for your own project purposes and styling to any component u
 ```jsx
 <FontAwesomeIcon icon="spinner" className="highlight" />
 ```
+
+## Adding/ Updating packages 
+
+For react ...
+```bash
+npm install react@latest react-dom@latest --registry http://npm.perseverenow.org/ppm/
+```
+
+For react dev dependencies...
+```bash
+npm install @types/react@latest @types/react-dom@latest --save-dev --registry http://npm.perseverenow.org/ppm/
+```
+
+For vite ...
+```bash
+npm install vite@latest @vitejs/plugin-react-swc@latest --save-dev --registry http://npm.perseverenow.org/ppm/
+```
+
+Other ...
+```bash
+npm install jsdom globals --save-dev --registry http://npm.perseverenow.org/ppm/
+```
+
+For linting...
+```bash
+npm install @eslint/js@latest eslint@latest eslint-plugin-react@latest eslint-plugin-react-hooks@latest eslint-plugin-react-refresh@latest --save-dev --registry http://npm.perseverenow.org/ppm/
+```
+
+For unit testing...
+```bash
+npm install vitest@latest @vitest/coverage-v8@latest @testing-library/jest-dom@latest @testing-library/react@latest @testing-library/user-event@latest --save-dev --registry http://npm.perseverenow.org/ppm/
+```
+
+For Font Awesome...
+```bash
+npm install @fortawesome/fontawesome-svg-core@latest @fortawesome/free-brands-svg-icons@latest @fortawesome/free-regular-svg-icons@latest @fortawesome/free-solid-svg-icons@latest @fortawesome/react-fontawesome@latest --save-dev --registry http://npm.perseverenow.org/ppm/
+```
+
+For React Router...
+```bash
+npm install react-router@latest --registry http://npm.perseverenow.org/ppm/
+```
+
+For MUI...
+```bash
+npm install @mui/material @emotion/react @emotion/styled --registry http://npm.perseverenow.org/ppm/
+```
+
+For MUI icons...
+```bash
+npm install @mui/icons-material@latest --registry http://npm.perseverenow.org/ppm/
+```
