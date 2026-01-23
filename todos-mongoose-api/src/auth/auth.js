@@ -6,7 +6,7 @@ import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
 import UserModel from '../models/User.js';
 
 import { mongodbURI } from '../constants/db-constants.js';
-import { secretKey } from '../constants/auth-constants.js';
+import { secretKeyAuth } from '../constants/auth-constants.js';
 
 passport.use(
   'signup',
@@ -21,7 +21,7 @@ passport.use(
 
         await mongoose.connect(mongodbURI, { serverSelectionTimeoutMS: 5000 });
 
-        let user = await UserModel.findOne({username});
+        let user = await UserModel.findOne({ username });
         // Silently skip the create if the user already exists.
         if (!user) {
           user = await UserModel.create({ username, password });
@@ -32,8 +32,8 @@ passport.use(
       } finally {
         mongoose.connection.close();
       }
-    }
-  )
+    },
+  ),
 );
 
 passport.use(
@@ -68,14 +68,14 @@ passport.use(
       } finally {
         mongoose.connection.close();
       }
-    }
-  )
+    },
+  ),
 );
 
 passport.use(
   new JWTStrategy(
     {
-      secretOrKey: secretKey,
+      secretOrKey: secretKeyAuth,
       // jwtFromRequest: ExtractJwt.fromUrlQueryParameter('auth_token'),
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     },
@@ -87,6 +87,6 @@ passport.use(
         // done({msg: 'not authenticated', ...error});
         done(error);
       }
-    }
-  )
+    },
+  ),
 );

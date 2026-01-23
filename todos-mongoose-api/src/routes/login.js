@@ -2,7 +2,7 @@ import express from 'express';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
 
-import { secretKey } from '../constants/auth-constants.js';
+import { secretKeyAuth, secretKeyRefresh } from '../constants/auth-constants.js';
 
 const router = express.Router();
 
@@ -16,6 +16,7 @@ router.post('/', async (req, res, next) => {
       }
 
       req.login(user, { session: false }, async (error) => {
+        const refreshTokenMaxDays = 30;
         if (error) {
           return next(error);
         }
@@ -24,11 +25,22 @@ router.post('/', async (req, res, next) => {
           _id: user._id,
           username: user.username,
         };
-        const token = jwt.sign({ user: body }, secretKey, {
+        const accessToken = jwt.sign({ user: body }, secretKeyAuth, {
           expiresIn: '10m',
         });
 
-        return res.json({ token });
+        const refreshToken = jwt.sign({ user: body }, secretKeyRefresh, {
+          expiresIn: `${refreshTokenMaxDays}d`,
+        });
+
+        res.cookie('jwt', refreshToken, {
+          httpOnly: true,
+          sameSite: 'lax',
+          secure: false, // TODO: make true for production (get from .env)
+          maxAge: refreshTokenMaxDays * 24 * 60 * 60 * 1000,
+        });
+
+        return res.json({ token: accessToken });
       });
     } catch (error) {
       return next(error);
@@ -37,8 +49,8 @@ router.post('/', async (req, res, next) => {
 });
 
 router.use((err, req, res, next) => {
-  console.log('login error', err);
-  res.status(400).send({ err });
+  console.error(err);
+  res.status(406).json({ message: 'Rejected' });
 });
 
 export default router;

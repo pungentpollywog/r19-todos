@@ -1,13 +1,19 @@
 # GET http://localhost:3000
 
-# GET http://localhost:3000/users
+# GET http://localhost:3000/users/profile
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY4ZGMxOGY4YzdmZDM3MjZmOTRkM2Q2ZSIsInVzZXJuYW1lIjoiY2RlbWFyaWEifSwiaWF0IjoxNzY5MTg5NDIwLCJleHAiOjE3NjkxOTAwMjB9.cDo-EBUu4Hi78LuEvXQa56Yaws2nDCWlVxap7yXU53U
 
 # GET http://localhost:3000/lists
 
-POST http://localhost:3000/login
-Content-Type: application/json
+# POST http://localhost:3000/login
+# Content-Type: application/json
 
-{
-  "username": "cdemaria",
-  "password": "1234"
-}
+# {
+#   "username": "cdemaria",
+#   "password": "1234"
+# }
+
+POST http://localhost:3000/refresh
+Content-Type: application/json 
+
+{}
