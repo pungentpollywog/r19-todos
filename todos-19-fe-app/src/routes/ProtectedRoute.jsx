@@ -8,7 +8,6 @@ export default function ProtectedRoute({children}) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log({accessToken});
     if (!accessToken) {
       navigate('/login');
     }

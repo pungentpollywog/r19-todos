@@ -18,7 +18,7 @@ export default function Dash() {
 
   function fetchLists() {
     console.log('Dash fetchLists', {accessToken});
-    getLists(accessToken.token)
+    getLists(accessToken?.token)
       .then((lists) => {
         setLists(lists);
       })

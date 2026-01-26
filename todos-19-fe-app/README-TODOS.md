@@ -3,13 +3,11 @@
 ## Primary TODOs
 
 ### Frontend
-- [ ] Update fetch calls for /lists CRUD to include the access token 
 - [ ] handle getting a new accessToken if manually refreshing the browser (once there is a refreshToken in place on the backend)
 - [ ] update Lists component to only include Suggestions if there is a value defined for VITE_GEMINI_API_KEY in `.env` file.
-- [ ] add better error handling for /list in client
+- [ ] add better error handling in Dash component 
 
 ### Backend
-- [ ] use authentication with lists
 - [ ] store lists as a sub-schema on the user endpoint (ie. move to users/123/lists )
 - [ ] start using `.env` file (already added dotenv library)
 - [ ] move MongoDB connect and disconnect to server.js
@@ -19,14 +17,12 @@
 ## Nice to have TODOs
 
 ### Frontend
-
 - [ ] Use useOptimistic hook
 - [ ] Suspense maybe
 
 ## TADONE
 
 ### Frontend
-
 - [x] Host in Docker
 - [x] move create list to the top
 - [x] Add AI task suggestion
@@ -34,10 +30,13 @@
 - [x] Route to Login first and then to Dash
 - [x] Store token in context
 - [x] handle authN (check if authN and route accordingly)
+- [x] Update fetch calls for /lists CRUD to include the access token 
+- [x] add better error handling for /list in client
 
 ### Backend
 - [x] add refresh token when logging in
 - [x] create /refresh endpoint
+- [x] use authentication with lists
 
 ## AI task suggestion notes
 
