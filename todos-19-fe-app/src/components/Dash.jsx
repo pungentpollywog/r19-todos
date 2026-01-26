@@ -1,22 +1,24 @@
-import { useEffect, useState } from 'react';
-
-import List from './List';
+import { useContext, useEffect, useState } from 'react';
 
 import './Dash.scss';
 
+import List from './List';
 import {
   getLists,
   createList,
   modifyList,
   destroyList,
 } from '../services/TodosAPI.js';
+import { AuthContext } from '../context/AuthContext';
 
 export default function Dash() {
   const [listName, setListName] = useState('');
   const [lists, setLists] = useState([]);
+  const [accessToken] = useContext(AuthContext);
 
   function fetchLists() {
-    getLists()
+    console.log('Dash fetchLists', {accessToken});
+    getLists(accessToken.token)
       .then((lists) => {
         setLists(lists);
       })
@@ -39,7 +41,7 @@ export default function Dash() {
       tasks: [],
     };
 
-    createList(newList)
+    createList(newList, accessToken.token)
       .then((resp) => {
         // TODO: check response
 
@@ -61,7 +63,7 @@ export default function Dash() {
 
     // setLists((lists) => lists.filter((list) => list._id !== id));
 
-    destroyList(id).then((resp) => {
+    destroyList(id, accessToken.token).then((resp) => {
       if (resp === 'success') {
         fetchLists();
       } else {
@@ -79,7 +81,7 @@ export default function Dash() {
 
     // TODO: useOptimistic
 
-    modifyList(list, fields)
+    modifyList(list, fields, accessToken.token)
       .then((resp) => {
         console.log(resp);
         fetchLists();

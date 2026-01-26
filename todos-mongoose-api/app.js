@@ -27,19 +27,16 @@ app.get('/', (req, res) => {
   res.send('Mongoose TODOs API');
 });
 
-app.use('/lists', listsRouter);
+
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/refresh', refreshRouter);
 
 // Plug in the JWT strategy as a middleware so only verified users can access this route.
-app.use(
-  '/users',
-  passport.authenticate('jwt', { session: false }),
-  secureRouter
-);
-// TODO: use authentication for lists
-// app.use('/lists', passport.authenticate('jwt', {session: false}), listsRouter);
+app.use('/users', passport.authenticate('jwt', { session: false }), secureRouter);
+
+// Use authentication for lists
+app.use('/lists', passport.authenticate('jwt', { session: false }), listsRouter);
 
 // Handle errors
 app.use(function (err, req, res, next) {
