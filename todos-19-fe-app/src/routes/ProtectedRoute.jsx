@@ -4,14 +4,14 @@ import { AuthContext } from "../context/AuthContext";
 
 
 export default function ProtectedRoute({children}) {
-  const [accessToken] = useContext(AuthContext);
+  const [authDetails] = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!accessToken) {
+    if (!authDetails) {
       navigate('/login');
     }
-  }, [accessToken])
+  }, [authDetails])
 
   return children; 
 }

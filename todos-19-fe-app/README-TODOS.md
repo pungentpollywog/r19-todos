@@ -3,8 +3,8 @@
 ## Primary TODOs
 
 ### Frontend
-- [ ] handle getting a new accessToken if manually refreshing the browser (once there is a refreshToken in place on the backend)
-- [ ] handle getting a new accessToken if current one expires.
+- [ ] handle getting a new access token if manually refreshing the browser (once there is a refreshToken in place on the backend)
+- [ ] handle getting a new access token if current one expires.
 - [ ] update Lists component to only include Suggestions if there is a value defined for VITE_GEMINI_API_KEY in `.env` file.
 - [ ] add better error handling in Dash component 
 

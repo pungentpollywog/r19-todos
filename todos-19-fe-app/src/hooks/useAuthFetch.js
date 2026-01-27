@@ -3,12 +3,12 @@ import { AuthContext } from '../context/AuthContext';
 import { useFetch } from './useFetch';
 
 export function useAuthFetch(url, options = null) {
-  const [token] = useContext(AuthContext);
+  const [authDetails] = useContext(AuthContext);
 
   const additionalOptions = {
     headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
+      Authorization: `Bearer ${authDetails.token}`,
+      // 'Content-Type': 'application/json',
     },
     ...options,
   };

@@ -11,17 +11,17 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [accessToken, setAccessToken] = useContext(AuthContext);
+  const [authDetails, setAuthDetails] = useContext(AuthContext);
   const navigate = useNavigate();
 
   useLayoutEffect(() => {
-    if (accessToken) {
+    if (authDetails) {
       navigate('/');
     }
-  }, [accessToken]);
+  }, [authDetails]);
 
   function doLogin() {
-    login({ username, password }, setAccessToken, setLoading, setError);
+    login({ username, password }, setAuthDetails, setLoading, setError);
   }
 
   function navToSignUp() {
@@ -59,7 +59,7 @@ export default function Login() {
               Login
             </button>
             {loading && <p>Logging in...</p>}
-            {accessToken && <pre>TOKEN: {JSON.stringify(accessToken)}</pre>}
+            {authDetails && <pre>TOKEN: {JSON.stringify(authDetails)}</pre>}
             {error && <pre>ERROR: {JSON.stringify(error.message)}</pre>}
             <p className="signup">No Account?&nbsp;<a href="#" onClick={navToSignUp}>Sign up</a></p>
           </nav>

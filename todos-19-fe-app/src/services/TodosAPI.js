@@ -2,7 +2,7 @@ import { baseUrl } from '../constants/api';
 
 const listsUrl = `${baseUrl}/lists`;
 
-function authHeader(token) {
+function makeAuthHeader(token) {
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
@@ -23,8 +23,10 @@ function checkResponse(res) {
 }
 
 export async function getLists(token) {
+  console.log('headers', JSON.stringify(makeAuthHeader(token)));
+
   return fetch(listsUrl, {
-    headers: { ...authHeader(token) },
+    headers: { ...makeAuthHeader(token) },
   })
     .then(parseResponse)
     .then((data) => data.lists);
@@ -32,7 +34,7 @@ export async function getLists(token) {
 
 export async function getList(id, token) {
   return fetch(`${listsUrl}/${id}`, {
-    headers: { ...authHeader(token) },
+    headers: { ...makeAuthHeader(token) },
   }).then(parseResponse);
 }
 
@@ -42,7 +44,7 @@ export async function createList(list, token) {
     body: JSON.stringify(list),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
-      ...authHeader(token),
+      ...makeAuthHeader(token),
     },
   }).then(parseResponse);
 }
@@ -55,7 +57,7 @@ export async function modifyList(list, fields, token) {
     body: JSON.stringify(newList),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
-      ...authHeader(token),
+      ...makeAuthHeader(token),
     },
   }).then(parseResponse);
 }
@@ -63,6 +65,6 @@ export async function modifyList(list, fields, token) {
 export async function destroyList(id, token) {
   return fetch(`${listsUrl}/${id}`, {
     method: 'DELETE',
-    headers: { ...authHeader(token) },
+    headers: { ...makeAuthHeader(token) },
   }).then((res) => (res.ok ? 'success' : 'error'));
 }

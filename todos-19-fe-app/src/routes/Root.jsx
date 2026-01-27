@@ -4,9 +4,9 @@ import { AuthContext } from '../context/AuthContext';
 import { Outlet } from 'react-router';
 
 function Root() {
-  const [accessToken, setAccessToken] = useState(null);
+  const [authDetails, setAuthDetails] = useState(null);
   return (
-    <AuthContext value={[accessToken, setAccessToken]}>
+    <AuthContext value={[authDetails, setAuthDetails]}>
       <Outlet />
     </AuthContext>
   );

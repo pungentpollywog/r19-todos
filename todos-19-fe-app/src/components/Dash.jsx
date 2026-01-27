@@ -3,22 +3,24 @@ import { useContext, useEffect, useState } from 'react';
 import './Dash.scss';
 
 import List from './List';
-import {
-  getLists,
-  createList,
-  modifyList,
-  destroyList,
-} from '../services/TodosAPI.js';
+import { getLists, createList, modifyList, destroyList } from '../services/TodosAPI.js';
 import { AuthContext } from '../context/AuthContext';
+// import { withAuth } from '../helpers/decorators';
 
 export default function Dash() {
   const [listName, setListName] = useState('');
   const [lists, setLists] = useState([]);
-  const [accessToken] = useContext(AuthContext);
+  const [authDetails] = useContext(AuthContext);
+
+  function withAuth(fn, ...args) {
+    return fn(...args, authDetails?.token);
+  }
 
   function fetchLists() {
-    console.log('Dash fetchLists', {accessToken});
-    getLists(accessToken?.token)
+    console.log('Dash fetchLists', { authDetails });
+
+    withAuth(getLists)
+      // getLists(authDetails?.token)
       .then((lists) => {
         setLists(lists);
       })
@@ -41,7 +43,7 @@ export default function Dash() {
       tasks: [],
     };
 
-    createList(newList, accessToken.token)
+    createList(newList, authDetails.token)
       .then((resp) => {
         // TODO: check response
 
@@ -63,7 +65,7 @@ export default function Dash() {
 
     // setLists((lists) => lists.filter((list) => list._id !== id));
 
-    destroyList(id, accessToken.token).then((resp) => {
+    destroyList(id, authDetails.token).then((resp) => {
       if (resp === 'success') {
         fetchLists();
       } else {
@@ -81,7 +83,7 @@ export default function Dash() {
 
     // TODO: useOptimistic
 
-    modifyList(list, fields, accessToken.token)
+    withAuth(modifyList, list, fields)
       .then((resp) => {
         console.log(resp);
         fetchLists();
