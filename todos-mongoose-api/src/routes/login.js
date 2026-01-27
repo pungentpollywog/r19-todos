@@ -2,7 +2,12 @@ import express from 'express';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
 
-import { secretKeyAuth, secretKeyRefresh } from '../constants/auth-constants.js';
+import {
+  secretKeyAuth,
+  secretKeyRefresh,
+  authTokenLifeSpanMinutes,
+  refreshTokenLifeSpanDays,
+} from '../constants/auth-constants.js';
 
 const router = express.Router();
 
@@ -16,7 +21,8 @@ router.post('/', async (req, res, next) => {
       }
 
       req.login(user, { session: false }, async (error) => {
-        const refreshTokenMaxDays = 30;
+        const authTokenMaxMins = authTokenLifeSpanMinutes ?? 10;
+        const refreshTokenMaxDays = refreshTokenLifeSpanDays ?? 30;
         if (error) {
           return next(error);
         }
@@ -26,7 +32,7 @@ router.post('/', async (req, res, next) => {
           username: user.username,
         };
         const accessToken = jwt.sign({ user: body }, secretKeyAuth, {
-          expiresIn: '10m',
+          expiresIn: `${authTokenMaxMins}m`,
         });
 
         const refreshToken = jwt.sign({ user: body }, secretKeyRefresh, {

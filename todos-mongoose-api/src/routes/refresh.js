@@ -1,6 +1,10 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import { secretKeyAuth, secretKeyRefresh } from '../constants/auth-constants.js';
+import {
+  authTokenLifeSpanMinutes,
+  secretKeyAuth,
+  secretKeyRefresh,
+} from '../constants/auth-constants.js';
 
 const router = express.Router();
 
@@ -14,14 +18,15 @@ router.post('/', async (req, res) => {
         return res.status(406).json({ message: 'rejected' });
       } else {
         const { user } = decoded;
+        const authTokenMaxMins = authTokenLifeSpanMinutes ?? 10;
         console.log(user);
         const accessToken = jwt.sign({ user }, secretKeyAuth, {
-          expiresIn: '10m',
+          expiresIn: `${authTokenMaxMins}m`,
         });
 
         // TODO: create a new refresh token here too.
 
-        res.json({token: accessToken});
+        res.json({ token: accessToken });
       }
     });
   } else {

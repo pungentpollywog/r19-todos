@@ -10,8 +10,16 @@ function parseResponse(res) {
   if (res.ok) {
     return res.json();
   } else {
+    // TODO: if !res.ok check for 401 status (Unauthorized)
     throw new Error(res.statusText);
   }
+}
+
+function checkResponse(res) {
+  if (res.status === 401) {
+    console.log('Do a refresh');
+  }
+  return res.ok;
 }
 
 export async function getLists(token) {
@@ -56,5 +64,5 @@ export async function destroyList(id, token) {
   return fetch(`${listsUrl}/${id}`, {
     method: 'DELETE',
     headers: { ...authHeader(token) },
-  }).then(res => res.ok ? 'success' : 'error');
+  }).then((res) => (res.ok ? 'success' : 'error'));
 }
