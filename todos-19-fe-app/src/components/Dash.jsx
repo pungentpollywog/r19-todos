@@ -10,10 +10,10 @@ import { AuthContext } from '../context/AuthContext';
 export default function Dash() {
   const [listName, setListName] = useState('');
   const [lists, setLists] = useState([]);
-  const [authDetails] = useContext(AuthContext);
+  const [authDetails, setAuthDetails] = useContext(AuthContext);
 
   function withAuth(fn, ...args) {
-    return fn(...args, authDetails?.token);
+    return fn(authDetails, setAuthDetails, ...args);
   }
 
   function fetchLists() {
@@ -43,12 +43,10 @@ export default function Dash() {
       tasks: [],
     };
 
-    createList(newList, authDetails.token)
-      .then((resp) => {
+    withAuth(createList, newList)
+      .then((res) => {
         // TODO: check response
-
-        // useOptimistic
-        // setLists((lists) => [...lists, newList]);
+        // useOptimistic 
 
         fetchLists();
       })
@@ -83,7 +81,7 @@ export default function Dash() {
 
     // TODO: useOptimistic
 
-    withAuth(modifyList, list, fields)
+    modifyList(list, fields)
       .then((resp) => {
         console.log(resp);
         fetchLists();

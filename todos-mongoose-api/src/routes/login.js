@@ -39,11 +39,14 @@ router.post('/', async (req, res, next) => {
           expiresIn: `${refreshTokenMaxDays}d`,
         });
 
+        console.log('during login, storing refresh token as', refreshToken);
+
         res.cookie('jwt', refreshToken, {
           httpOnly: true,
           sameSite: 'lax',
           secure: false, // TODO: make true for production (get from .env)
           maxAge: refreshTokenMaxDays * 24 * 60 * 60 * 1000,
+          path: '/'
         });
 
         return res.json({ token: accessToken });

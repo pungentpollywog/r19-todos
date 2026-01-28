@@ -9,9 +9,11 @@ import {
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-  console.log('at /refresh', req.cookies);
+  console.log('at /refresh cookies:', req.cookies);
   if (req.cookies?.jwt) {
     const refreshToken = req.cookies.jwt;
+
+    console.log('refresh token retrieved by refresh endpoint', refreshToken);
 
     jwt.verify(refreshToken, secretKeyRefresh, (err, decoded) => {
       if (err) {

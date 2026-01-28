@@ -54,7 +54,6 @@ input {
   padding: 0.25rem 0.5rem;
   border: none;
   border-radius: 8px;
-  backdrop-filter: blur(5px);
   background-color: var(--base2);
   box-shadow: var(--input-shadow);
   margin-right: 0.5rem;
