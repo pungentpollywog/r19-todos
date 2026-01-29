@@ -3,28 +3,12 @@ import { baseUrl } from '../constants/api';
 
 const listsUrl = `${baseUrl}/lists`;
 
-function makeAuthHeader(token) {
-  return token ? { Authorization: `Bearer ${token}` } : {};
-}
-
-function parseResponse(res) {
-  if (res.ok) {
-    return res.json();
-  } else {
-    throw new Error(res.statusText);
-  }
-}
-
 export async function getLists(authDetails, setAuthDetails) {
-  return authFetch(authDetails, setAuthDetails, listsUrl, {headers: {}})
-    .then((data) => data.lists);
+  return authFetch(authDetails, setAuthDetails, listsUrl).then((data) => data.lists);
 }
 
-export async function getList(id, token) {
-  // TODO: update to use authFetch
-  return fetch(`${listsUrl}/${id}`, {
-    headers: { ...makeAuthHeader(token) },
-  }).then(parseResponse);
+export async function getList(authDetails, setAuthDetails, id) {
+  return authFetch(authDetails, setAuthDetails, `${listsUrl}/${id}`);
 }
 
 export async function createList(authDetails, setAuthDetails, list) {
@@ -34,27 +18,23 @@ export async function createList(authDetails, setAuthDetails, list) {
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
     },
-  }).catch(err => console.error(err));
+  }); 
 }
 
-export async function modifyList(list, fields, token) {
+export async function modifyList(authDetails, setAuthDetails, list, fields) {
   const newList = { ...list, ...fields };
 
-  // TODO: update to authFetch
-  return fetch(`${listsUrl}/${list._id}`, {
+  return authFetch(authDetails, setAuthDetails, `${listsUrl}/${list._id}`, {
     method: 'PATCH',
     body: JSON.stringify(newList),
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
-      ...makeAuthHeader(token),
     },
-  }).then(parseResponse);
+  });
 }
 
-export async function destroyList(id, token) {
-  // TODO: update to authFetch
-  return fetch(`${listsUrl}/${id}`, {
+export async function destroyList(authDetails, setAuthDetails, id) {
+  return authFetch(authDetails, setAuthDetails, `${listsUrl}/${id}`, {
     method: 'DELETE',
-    headers: { ...makeAuthHeader(token) },
-  }).then((res) => (res.ok ? 'success' : 'error'));
+  });
 }

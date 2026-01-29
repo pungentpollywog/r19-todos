@@ -41,7 +41,7 @@ export default function Dash() {
 
     withAuth(createList, newList)
       .then(() => {
-        // useOptimistic ? 
+        // useOptimistic ?
         fetchLists();
       })
       .catch((err) => console.error(err))
@@ -51,7 +51,7 @@ export default function Dash() {
   }
 
   function removeList(id) {
-    destroyList(id, authDetails.token).then((resp) => {
+    withAuth(destroyList, id).then((resp) => {
       if (resp === 'success') {
         fetchLists();
       } else {
@@ -64,9 +64,9 @@ export default function Dash() {
   // fields = {name: 'new name'}
   function updateList(list, fields) {
     // TODO: should add a spinner
-    // TODO: useOptimistic ? 
+    // TODO: useOptimistic ?
 
-    modifyList(list, fields)
+    withAuth(modifyList, list, fields)
       .then(() => {
         fetchLists();
         // TODO: just fetch the list that was updated using the _id in the response.

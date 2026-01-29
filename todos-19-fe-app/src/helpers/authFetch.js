@@ -57,7 +57,11 @@ function refreshTokenAndRetry(originalRequest, setAuthDetails) {
     .finally(() => (isRefreshing = false));
 }
 
-function authFetch(authDetails, setAuthDetails, url, options) {
+function authFetch(authDetails, setAuthDetails, url, options = {}) {
+  if (!options.headers) {
+    options.headers = {};
+  }
+
   if (!authDetails) {
     return refreshTokenAndRetry({ url, ...options }, setAuthDetails);
   }
@@ -71,6 +75,7 @@ function authFetch(authDetails, setAuthDetails, url, options) {
     credentials: 'include',
   };
 
+  // @ts-ignore
   return fetch(url, additionalOptions).then((res) => {
     if (res.ok) {
       return res.status === 204 ? Promise.resolve('success') : res.json();

@@ -3,8 +3,8 @@
 ## Primary TODOs
 
 ### Frontend
-- [ ] fix up TodosAPI so that don't need to pass in  {headers: {}} for getLists()
-- [ ] update TodosAPI to use withAuth and authFetch for modify and delete
+- [x] fix up TodosAPI so that don't need to pass in  {headers: {}} for getLists()
+- [x] update TodosAPI to use withAuth and authFetch for modify and delete
 - [ ] update Lists component to only include Suggestions if there is a value defined for VITE_GEMINI_API_KEY in `.env` file.
 - [ ] add better error handling in Dash component 
 

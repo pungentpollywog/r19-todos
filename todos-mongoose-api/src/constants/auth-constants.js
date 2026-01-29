@@ -4,5 +4,5 @@ export const secretKeyAuth = process.env.SECRET_AUTH_KEY ?? 'TOP_SECRET';
 
 export const secretKeyRefresh = process.env.SECRET_KEY_REFRESS ?? 'SUPER_TOP_SECRET';
 
-export const authTokenLifeSpanMinutes = 1;
+export const authTokenLifeSpanMinutes = 10;
 export const refreshTokenLifeSpanDays = 30;
