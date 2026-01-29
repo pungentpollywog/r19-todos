@@ -19,7 +19,7 @@ passport.use(
       try {
         console.log('in auth/signup');
 
-        await mongoose.connect(mongodbURI, { serverSelectionTimeoutMS: 5000 });
+        // await mongoose.connect(mongodbURI, { serverSelectionTimeoutMS: 5000 });
 
         let user = await UserModel.findOne({ username });
         // Silently skip the create if the user already exists.
@@ -29,8 +29,8 @@ passport.use(
         return done(null, user);
       } catch (error) {
         done(error);
-      } finally {
-        mongoose.connection.close();
+      // } finally {
+      //   mongoose.connection.close();
       }
     },
   ),
@@ -45,7 +45,7 @@ passport.use(
     },
     async (username, password, done) => {
       try {
-        await mongoose.connect(mongodbURI, { serverSelectionTimeoutMS: 5000 });
+        // await mongoose.connect(mongodbURI, { serverSelectionTimeoutMS: 5000 });
 
         const user = await UserModel.findOne({ username });
 
@@ -65,8 +65,8 @@ passport.use(
         return done(null, user, { message: 'Logged in successfully' });
       } catch (error) {
         return done(error);
-      } finally {
-        mongoose.connection.close();
+      // } finally {
+      //   mongoose.connection.close();
       }
     },
   ),

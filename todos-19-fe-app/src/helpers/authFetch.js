@@ -12,23 +12,27 @@ function processQueuedRequests(error, newToken = null) {
   queuedRequests = [];
 }
 
+function queueRequest(originalRequest) {
+  return new Promise((resolve, reject) => {
+    queuedRequests.push({ resolve, reject });
+  })
+    .then((newToken) => {
+      originalRequest.headers.Authorization = `Bearer ${newToken}`;
+      return fetch(originalRequest.url, originalRequest).then(parseResponse);
+    })
+    .catch((err) => {
+      throw new Error(err);
+    });
+}
+
 function refreshTokenAndRetry(originalRequest, setAuthDetails) {
   if (isRefreshing) {
-    return new Promise((resolve, reject) => {
-      queuedRequests.push({ resolve, reject });
-    })
-      .then((newToken) => {
-        originalRequest.headers.Authorization = `Bearer ${newToken}`;
-        return fetch(originalRequest.url, originalRequest);
-      })
-      .catch((err) => {
-        throw new Error(err);
-      });
+    return queueRequest(originalRequest);
   }
 
   isRefreshing = true;
 
-  fetch(`${baseUrl}/refresh`, {
+  return fetch(`${baseUrl}/refresh`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -45,13 +49,15 @@ function refreshTokenAndRetry(originalRequest, setAuthDetails) {
     .then((authDetails) => {
       setAuthDetails(authDetails);
       processQueuedRequests(null, authDetails.token);
+      isRefreshing = false;
+      originalRequest.headers.Authorization = `Bearer ${authDetails.token}`;
+      return fetch(originalRequest.url, originalRequest).then(parseResponse);
     })
     .catch((err) => processQueuedRequests(err, null))
     .finally(() => (isRefreshing = false));
 }
 
 function authFetch(authDetails, setAuthDetails, url, options) {
-  // TODO: test this to fix error on browser refresh
   if (!authDetails) {
     return refreshTokenAndRetry({ url, ...options }, setAuthDetails);
   }
@@ -60,9 +66,9 @@ function authFetch(authDetails, setAuthDetails, url, options) {
     ...options,
     headers: {
       ...makeAuthHeader(authDetails.token),
-      ...(options?.headers ?? {}),
+      ...options?.headers,
     },
-    credentials: 'include'
+    credentials: 'include',
   };
 
   return fetch(url, additionalOptions).then((res) => {
@@ -74,6 +80,14 @@ function authFetch(authDetails, setAuthDetails, url, options) {
       throw new Error(res.statusText);
     }
   });
+}
+
+function parseResponse(res) {
+  if (res.ok) {
+    return res.status === 204 ? Promise.resolve('success') : res.json();
+  } else {
+    throw new Error(res.statusText);
+  }
 }
 
 export { authFetch };

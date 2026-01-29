@@ -16,7 +16,7 @@ function parseResponse(res) {
 }
 
 export async function getLists(authDetails, setAuthDetails) {
-  return authFetch(authDetails, setAuthDetails, listsUrl)
+  return authFetch(authDetails, setAuthDetails, listsUrl, {headers: {}})
     .then((data) => data.lists);
 }
 

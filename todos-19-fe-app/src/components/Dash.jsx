@@ -5,7 +5,6 @@ import './Dash.scss';
 import List from './List';
 import { getLists, createList, modifyList, destroyList } from '../services/TodosAPI.js';
 import { AuthContext } from '../context/AuthContext';
-// import { withAuth } from '../helpers/decorators';
 
 export default function Dash() {
   const [listName, setListName] = useState('');
@@ -17,10 +16,7 @@ export default function Dash() {
   }
 
   function fetchLists() {
-    console.log('Dash fetchLists', { authDetails });
-
     withAuth(getLists)
-      // getLists(authDetails?.token)
       .then((lists) => {
         setLists(lists);
       })
@@ -44,10 +40,8 @@ export default function Dash() {
     };
 
     withAuth(createList, newList)
-      .then((res) => {
-        // TODO: check response
-        // useOptimistic 
-
+      .then(() => {
+        // useOptimistic ? 
         fetchLists();
       })
       .catch((err) => console.error(err))
@@ -57,12 +51,6 @@ export default function Dash() {
   }
 
   function removeList(id) {
-    // Call an API to delete the list with passed in id.
-    // If success, call API to fetch the lists.
-    // update with setLists()
-
-    // setLists((lists) => lists.filter((list) => list._id !== id));
-
     destroyList(id, authDetails.token).then((resp) => {
       if (resp === 'success') {
         fetchLists();
@@ -75,15 +63,11 @@ export default function Dash() {
   // fields = {tasks: [...]}
   // fields = {name: 'new name'}
   function updateList(list, fields) {
-    // TODO: call API to update the list.
-    // Then call getLists and then call setLists
     // TODO: should add a spinner
-
-    // TODO: useOptimistic
+    // TODO: useOptimistic ? 
 
     modifyList(list, fields)
-      .then((resp) => {
-        console.log(resp);
+      .then(() => {
         fetchLists();
         // TODO: just fetch the list that was updated using the _id in the response.
         // Then use the result to update that one list in lists instead of calling fetchLists.

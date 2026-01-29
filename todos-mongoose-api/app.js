@@ -22,25 +22,29 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.all('/{login}', (req, res, next) => {
+app.all('/api/{login}', (req, res, next) => {
   console.log('request', req.body);
   next();
 });
 
-app.get('/', (req, res) => {
+/* NOTE: using /api instead of / for all endpoints
+   because frontend is prefixing endpoints with /api 
+   when proxying to http://localhost:3000 to make the 
+   browser think the frontend and backend are on the 
+   same origin. This bypasses CORS and SameSite issues. */
+app.get('/api', (req, res) => {
   res.send('Mongoose TODOs API');
 });
 
-
-app.use('/signup', signupRouter);
-app.use('/login', loginRouter);
-app.use('/refresh', refreshRouter);
+app.use('/api/signup', signupRouter);
+app.use('/api/login', loginRouter);
+app.use('/api/refresh', refreshRouter);
 
 // Plug in the JWT strategy as a middleware so only verified users can access this route.
-app.use('/users', passport.authenticate('jwt', { session: false }), secureRouter);
+app.use('/api/users', passport.authenticate('jwt', { session: false }), secureRouter);
 
 // Use authentication for lists
-app.use('/lists', passport.authenticate('jwt', { session: false }), listsRouter);
+app.use('/api/lists', passport.authenticate('jwt', { session: false }), listsRouter);
 
 // Handle errors
 app.use(function (err, req, res, next) {
