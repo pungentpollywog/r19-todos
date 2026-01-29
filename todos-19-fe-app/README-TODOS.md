@@ -3,12 +3,12 @@
 ## Primary TODOs
 
 ### Frontend
-- [x] fix up TodosAPI so that don't need to pass in  {headers: {}} for getLists()
-- [x] update TodosAPI to use withAuth and authFetch for modify and delete
+- [ ] add a profile with a logout button
 - [ ] update Lists component to only include Suggestions if there is a value defined for VITE_GEMINI_API_KEY in `.env` file.
 - [ ] add better error handling in Dash component 
 
 ### Backend
+- [ ] add a logout endpoint that removes the refresh token from the cookies
 - [ ] store lists as a sub-schema on the user endpoint (ie. move to users/123/lists )
 - [ ] start using `.env` file (already added dotenv library)
 - [ ] create a new refresh token on each refresh call (token rotation)
@@ -34,6 +34,8 @@
 - [x] add better error handling for /list in client
 - [x] handle getting a new access token if manually refreshing the browser (once there is a refreshToken in place on the backend)
 - [x] handle getting a new access token if current one expires.
+- [x] fix up TodosAPI so that don't need to pass in  {headers: {}} for getLists()
+- [x] update TodosAPI to use withAuth and authFetch for modify and delete
 
 ### Backend
 - [x] add refresh token when logging in
