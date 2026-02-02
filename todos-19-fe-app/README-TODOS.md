@@ -9,6 +9,7 @@
 
 ### Backend
 - [ ] add a logout endpoint that removes the refresh token from the cookies
+- [ ] try out setting cors origin property with regex (simulating /*.domain.com$/)
 - [ ] store lists as a sub-schema on the user endpoint (ie. move to users/123/lists )
 - [ ] start using `.env` file (already added dotenv library)
 - [ ] create a new refresh token on each refresh call (token rotation)
