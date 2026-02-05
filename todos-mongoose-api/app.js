@@ -1,14 +1,14 @@
 import express from 'express';
 import cors from 'cors';
 
-import listsRouter from './src/routes/lists.js';
 import signupRouter from './src/routes/signup.js';
 import loginRouter from './src/routes/login.js';
-import secureRouter from './src/routes/secure-routes.js';
+import usersRouter from './src/routes/users.js';
 import refreshRouter from './src/routes/refresh.js';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
 
+// adds passport middleware
 import './src/auth/auth.js';
 
 const app = express();
@@ -40,11 +40,8 @@ app.use('/api/signup', signupRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/refresh', refreshRouter);
 
-// Plug in the JWT strategy as a middleware so only verified users can access this route.
-app.use('/api/users', passport.authenticate('jwt', { session: false }), secureRouter);
-
-// Use authentication for lists
-app.use('/api/lists', passport.authenticate('jwt', { session: false }), listsRouter);
+// Only verified users can access this route.
+app.use('/api/users', passport.authenticate('jwt', { session: false }), usersRouter);
 
 // Handle errors
 app.use(function (err, req, res, next) {

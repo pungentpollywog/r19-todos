@@ -3,17 +3,20 @@
 ## Primary TODOs
 
 ### Frontend
+- [ ] rename CreateAccount component to Signup
 - [ ] add a profile with a logout button
 - [ ] update Lists component to only include Suggestions if there is a value defined for VITE_GEMINI_API_KEY in `.env` file.
 - [ ] add better error handling in Dash component 
+- [ ] add unit tests
 
 ### Backend
+- [ ] update user.lists with id of new list once created (in listsRouter) 
 - [ ] add a logout endpoint that removes the refresh token from the cookies
 - [ ] try out setting cors origin property with regex (simulating /*.domain.com$/)
-- [ ] store lists as a sub-schema on the user endpoint (ie. move to users/123/lists )
 - [ ] start using `.env` file (already added dotenv library)
 - [ ] create a new refresh token on each refresh call (token rotation)
 - [ ] consolidate code in login, signup, and refresh under an auth router (and DRY it up - same code for creating an access token JWT in both login and refresh) or keep em separate and just use common helper function(s)
+- [ ] add versioning (i.e. /api/v1/...)
 
 ## Nice to have TODOs
 
@@ -37,12 +40,15 @@
 - [x] handle getting a new access token if current one expires.
 - [x] fix up TodosAPI so that don't need to pass in  {headers: {}} for getLists()
 - [x] update TodosAPI to use withAuth and authFetch for modify and delete
+- [x] decode jwt and pull out userId to pass along with /user/[userId]/list requests
 
 ### Backend
 - [x] add refresh token when logging in
 - [x] create /refresh endpoint
 - [x] use authentication with lists
 - [x] move MongoDB connect and disconnect to server.js
+- [x] add RBAC authorization for users/ and lists/
+- [x] store lists as a sub-schema on the user endpoint (ie. move to users/123/lists )
 
 ## AI task suggestion notes
 

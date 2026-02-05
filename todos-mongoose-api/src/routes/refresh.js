@@ -9,11 +9,8 @@ import {
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-  console.log('at /refresh cookies:', req.cookies);
   if (req.cookies?.jwt) {
     const refreshToken = req.cookies.jwt;
-
-    console.log('refresh token retrieved by refresh endpoint', refreshToken);
 
     jwt.verify(refreshToken, secretKeyRefresh, (err, decoded) => {
       if (err) {
@@ -21,12 +18,11 @@ router.post('/', async (req, res) => {
       } else {
         const { user } = decoded;
         const authTokenMaxMins = authTokenLifeSpanMinutes ?? 10;
-        console.log(user);
         const accessToken = jwt.sign({ user }, secretKeyAuth, {
           expiresIn: `${authTokenMaxMins}m`,
         });
 
-        // TODO: create a new refresh token here too.
+        // TODO: create a new refresh token here too (i.e token rotation).
 
         res.json({ token: accessToken });
       }

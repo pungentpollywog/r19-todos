@@ -30,6 +30,7 @@ router.post('/', async (req, res, next) => {
         const body = {
           _id: user._id,
           username: user.username,
+          roles: user.roles
         };
         const accessToken = jwt.sign({ user: body }, secretKeyAuth, {
           expiresIn: `${authTokenMaxMins}m`,

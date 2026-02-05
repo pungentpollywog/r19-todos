@@ -1,0 +1,5 @@
+*.diff
+
+node_modules
+
+.env

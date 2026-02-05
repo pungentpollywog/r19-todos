@@ -1,1 +1,19 @@
-GET http://localhost:3000/lists?page=1
+# GET http://localhost:3000/api/users/6983950383fccec8691da4de/lists?page=1
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY5ODM5NTAzODNmY2NlYzg2OTFkYTRkZSIsInVzZXJuYW1lIjoiY2RlbWFyaWEzIiwicm9sZXMiOlsiY2xpZW50Il19LCJpYXQiOjE3NzAzMTg1MTMsImV4cCI6MTc3MDMxOTExM30.KAN3mTzwtfFVxFFpvoJ-qvMDJghgaMs5bycekSI-EIQ
+
+GET http://localhost:3000/api/users/698395129075d011728a2f3f/lists?page=1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY4ZGMxOGY4YzdmZDM3MjZmOTRkM2Q2ZSIsInVzZXJuYW1lIjoiY2RlbWFyaWEiLCJyb2xlcyI6WyJhZG1pbiJdfSwiaWF0IjoxNzcwMzE5MjcwLCJleHAiOjE3NzAzMTk4NzB9.tZw1ateeQ0UuJxZDkJ6BtjeyJmmfnu06n8ybJO6i1a0
+
+# POST http://localhost:3000/api/users/lists
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY5ODM5NTAzODNmY2NlYzg2OTFkYTRkZSIsInVzZXJuYW1lIjoiY2RlbWFyaWEzIiwicm9sZXMiOlsiY2xpZW50Il19LCJpYXQiOjE3NzAyMzM3MDgsImV4cCI6MTc3MDIzNDMwOH0.ra4oFawbZnoEQMwo9Ab5a6dfGyokRlZE6kO1DQFOXu4
+# Content-Type: application/json
+
+# {
+#   "name": "testing4",
+#   "tasks": []
+# }
+
+
+# ownerId
+# 6983950383fccec8691da4de # cdemaria3
+# 698395129075d011728a2f3f # cdemaria4

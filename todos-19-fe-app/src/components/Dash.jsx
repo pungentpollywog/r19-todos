@@ -33,7 +33,7 @@ export default function Dash() {
 
   function addList() {
     const newList = {
-      // TODO: name, id, tasks
+      // Database now adds _id. So no need for:
       // id: crypto.randomUUID(),
       name: listName || 'My List',
       tasks: [],

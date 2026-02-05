@@ -2,7 +2,7 @@ import express from 'express';
 
 import List from '../models/List.js';
 
-const router = express.Router();
+const router = express.Router({mergeParams: true});
 
 router.get('/', async (req, res, next) => {
   let { limit = 10, page = 1 } = req.query;
@@ -13,7 +13,8 @@ router.get('/', async (req, res, next) => {
   try {
     const total = await List.estimatedDocumentCount();
     const pages = Math.ceil(total / limit);
-    const docs = await List.find().limit(limit).skip(offset).exec();
+    // @ts-ignore
+    const docs = await List.find({owner: req.params.userId}).limit(limit).skip(offset).exec();
     const response = {
       totalItems: total,
       totalPages: pages,
@@ -39,8 +40,8 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const doc = await List.create(req.body);
-    console.log(doc);
+    const doc = await List.create({...req.body, owner: req.user._id});
+    // TODO: update user.lists with the id of this new list
     if (doc) {
       res.status(201).send(doc);
     } else {
@@ -62,7 +63,7 @@ router.put('/:id', async (req, res, next) => {
 
 router.patch('/:id', async (req, res, next) => {
   try {
-    const doc = await List.findByIdAndUpdate(req.params.id, req.body).exec();
+    const doc = await List.findByIdAndUpdate(req.params.id, {...req.body, owner: req.user._id}).exec();
     doc ? res.send(doc) : res.status(404).end();
   } catch (err) {
     console.error(err);
@@ -72,7 +73,7 @@ router.patch('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   try {
-    const result = await List.deleteOne({ _id: req.params.id });
+    const result = await List.deleteOne({ _id: req.params.id, owner: req.user._id });
     if (result.acknowledged && result.deletedCount > 0) {
       res.status(204).end();
     } else {

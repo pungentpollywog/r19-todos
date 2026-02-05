@@ -11,7 +11,16 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
-  }
+  },
+  roles: 
+    {
+      type: [String],
+      enum: ['client', 'admin'],
+      required: true,
+      default: 'client',
+    },
+  // lists: [{ type: Schema.Types.ObjectId, ref: 'List' }],
+  created: { type: Date, default: Date.now },
 });
 
 userSchema.pre('save', async function (next) {
