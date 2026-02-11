@@ -12,7 +12,6 @@ import {
 const router = express.Router();
 
 router.post('/', async (req, res, next) => {
-  console.log('login post', req.body);
   passport.authenticate('login', async (err, user, info) => {
     try {
       if (err || !user) {

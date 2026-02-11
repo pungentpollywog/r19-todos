@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { signup } from '../services/AuthAPI';
 
-import './CreateAccount.scss';
+import './Signup.scss';
 import { useNavigate } from 'react-router';
 
 export default function CreateAccount() {
@@ -15,8 +15,7 @@ export default function CreateAccount() {
   const navigate = useNavigate();
 
   function doSignup() {
-    console.log('sign up with', { username, password });
-    signup({ username, password }, setStatus, setLoading, setError);
+    signup({ username, password }, setStatus, setLoading, setError).then(() => navToLogin());
   }
 
   function navToLogin() {
@@ -55,7 +54,7 @@ export default function CreateAccount() {
             {loading && <p>Logging in...</p>}
             {status && <pre>STATUS: {JSON.stringify(status)}</pre>}
             {error && <pre>ERROR: {JSON.stringify(error.message)}</pre>}
-            <p className="signup">
+            <p className="login">
               Have an account?&nbsp;
               <a href="#" onClick={navToLogin}>
                 Log in

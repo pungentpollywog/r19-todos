@@ -39,4 +39,12 @@ main.create-account-page {
     justify-content: flex-end;
   }
 
+    .login {
+    opacity: 0.8;
+    margin-left: 0.25rem;
+    a {
+    color: var(--baseDark2);
+    }
+  }
+
 }

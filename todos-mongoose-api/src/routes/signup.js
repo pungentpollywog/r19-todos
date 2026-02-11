@@ -1,7 +1,6 @@
 import express from 'express';
 import passport from 'passport';
 
-
 const router = express.Router();
 
 router.all('/', (req, res, next) => {
@@ -9,19 +8,15 @@ router.all('/', (req, res, next) => {
   next();
 });
 
-router.post(
-  '/', 
-  passport.authenticate('signup', {session: false}), 
-  async (req, res) => {
-    // @ts-ignore
-    delete req.user._doc.password;
+router.post('/', passport.authenticate('signup', { session: false }), async (req, res) => {
+  // @ts-ignore
+  delete req.user._doc.password;
 
-    res.json({
-      message: 'Signup successful',
-      user: req.user
-    });
-  }
- );
+  res.json({
+    message: 'Signup successful',
+    user: req.user,
+  });
+});
 
 router.use((err, req, res, next) => {
   console.log('signup error', err);

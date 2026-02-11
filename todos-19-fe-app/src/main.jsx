@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router';
 
 import Root from './routes/Root.jsx';
 import Login from './routes/Login.jsx';
-import CreateAccount from './routes/CreateAccount.jsx';
+import Signup from './routes/Signup.jsx';
 import Dash from './components/Dash.jsx';
 import ProtectedRoute from './routes/ProtectedRoute.jsx';
 import './index.css';
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
         ),
       },
       { path: '/login', Component: Login, HydrateFallback: dummyFallback },
-      { path: '/signup', Component: CreateAccount, HydrateFallback: dummyFallback },
+      { path: '/signup', Component: Signup, HydrateFallback: dummyFallback },
     ],
   },
 ]);

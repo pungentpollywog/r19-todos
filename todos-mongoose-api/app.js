@@ -1,14 +1,15 @@
 import express from 'express';
 import cors from 'cors';
+import passport from 'passport';
+import cookieParser from 'cookie-parser';
 
 import signupRouter from './src/routes/signup.js';
 import loginRouter from './src/routes/login.js';
 import usersRouter from './src/routes/users.js';
 import refreshRouter from './src/routes/refresh.js';
-import passport from 'passport';
-import cookieParser from 'cookie-parser';
+import logoutRouter from './src/routes/logout.js';
 
-// adds passport middleware
+// adds our custom passport middleware
 import './src/auth/auth.js';
 
 const app = express();
@@ -39,6 +40,7 @@ app.get('/api', (req, res) => {
 app.use('/api/signup', signupRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/refresh', refreshRouter);
+app.use('/api/logout', logoutRouter);
 
 // Only verified users can access this route.
 app.use('/api/users', passport.authenticate('jwt', { session: false }), usersRouter);
