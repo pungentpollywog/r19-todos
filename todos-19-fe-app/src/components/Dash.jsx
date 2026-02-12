@@ -27,7 +27,7 @@ export default function Dash() {
 
   useEffect(() => {
     fetchLists();
-  }, []);
+  }, [authDetails]);
 
   // Dash handles CRUD for lists
 

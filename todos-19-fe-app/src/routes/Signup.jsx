@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { signup } from '../services/AuthAPI';
 
 import './Signup.scss';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 export default function CreateAccount() {
   const [username, setUsername] = useState('');
@@ -47,7 +47,7 @@ export default function CreateAccount() {
               onChange={(ev) => setPassword(ev.target.value)}
             />
           </p>
-          <nav>
+          <nav aria-label="modal actions">
             <button type="button" onClick={doSignup} disabled={disableButton}>
               Create Account
             </button>
@@ -56,9 +56,7 @@ export default function CreateAccount() {
             {error && <pre>ERROR: {JSON.stringify(error.message)}</pre>}
             <p className="login">
               Have an account?&nbsp;
-              <a href="#" onClick={navToLogin}>
-                Log in
-              </a>
+              <Link to="/login">Log in</Link>
             </p>
           </nav>
         </form>

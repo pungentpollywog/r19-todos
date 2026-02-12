@@ -25,13 +25,7 @@ function queueRequest(originalRequest) {
     });
 }
 
-function refreshTokenAndRetry(originalRequest, setAuthDetails) {
-  if (isRefreshing) {
-    return queueRequest(originalRequest);
-  }
-
-  isRefreshing = true;
-
+function refreshAccess(setAuthDetails) {
   return fetch(`${baseUrl}/refresh`, {
     method: 'POST',
     headers: {
@@ -48,6 +42,19 @@ function refreshTokenAndRetry(originalRequest, setAuthDetails) {
     })
     .then((authDetails) => {
       setAuthDetails(authDetails);
+      return authDetails;
+    });
+}
+
+function refreshTokenAndRetry(originalRequest, setAuthDetails) {
+  if (isRefreshing) {
+    return queueRequest(originalRequest);
+  }
+
+  isRefreshing = true;
+
+  return refreshAccess(setAuthDetails)
+    .then((authDetails) => {
       processQueuedRequests(null, authDetails.token);
       isRefreshing = false;
       originalRequest.headers.Authorization = `Bearer ${authDetails.token}`;
@@ -95,4 +102,4 @@ function parseResponse(res) {
   }
 }
 
-export { authFetch };
+export { authFetch, refreshAccess };

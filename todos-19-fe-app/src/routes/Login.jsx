@@ -1,31 +1,20 @@
-import { useContext, useLayoutEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router';
 
 import { AuthContext } from '../context/AuthContext';
 import { login } from '../services/AuthAPI';
 import './Login.scss';
-
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [authDetails, setAuthDetails] = useContext(AuthContext);
+  const [, setAuthDetails] = useContext(AuthContext);
   const navigate = useNavigate();
 
-  useLayoutEffect(() => {
-    if (authDetails) {
-      navigate('/');
-    }
-  }, [authDetails]);
-
   function doLogin() {
-    login({ username, password }, setAuthDetails, setLoading, setError);
-  }
-
-  function navToSignUp() {
-    navigate('/signup');
+    login({ username, password }, setAuthDetails, setLoading, setError).then(() => navigate('/'));
   }
 
   return (
@@ -53,15 +42,16 @@ export default function Login() {
               onChange={(ev) => setPassword(ev.target.value)}
             />
           </p>
-          <nav>
-
+          <nav aria-label="modal actions">
             <button type="button" onClick={doLogin}>
               Login
             </button>
             {loading && <p>Logging in...</p>}
-            {authDetails && <pre>TOKEN: {JSON.stringify(authDetails)}</pre>}
             {error && <pre>ERROR: {JSON.stringify(error.message)}</pre>}
-            <p className="signup">No Account?&nbsp;<a href="#" onClick={navToSignUp}>Sign up</a></p>
+            <p className="signup">
+              No Account?&nbsp;
+              <Link to="/signup">Sign up</Link>
+            </p>
           </nav>
         </form>
       </section>

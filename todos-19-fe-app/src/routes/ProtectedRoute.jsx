@@ -1,17 +1,15 @@
-import { useContext, useEffect } from "react";
-import { useNavigate } from "react-router";
-import { AuthContext } from "../context/AuthContext";
+import { useContext, useLayoutEffect } from 'react';
+import { useNavigate } from 'react-router';
+import { AuthContext } from '../context/AuthContext';
+import { refreshAccess } from '../helpers/authFetch';
 
-
-export default function ProtectedRoute({children}) {
-  const [authDetails] = useContext(AuthContext);
+export default function ProtectedRoute({ children }) {
+  const [, setAuthDetails] = useContext(AuthContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!authDetails) {
-      navigate('/login');
-    }
-  }, [authDetails])
+  useLayoutEffect(() => {
+    refreshAccess(setAuthDetails).catch(() => navigate('/login'));
+  }, []);
 
-  return children; 
+  return children;
 }

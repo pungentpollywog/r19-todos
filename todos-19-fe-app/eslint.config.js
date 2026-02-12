@@ -33,12 +33,12 @@ export default defineConfig([
       'no-undef': 'error',
       'react/jsx-uses-vars': 'error',
       'react/jsx-uses-react': 'error',
-      'semi': 'error',
+      semi: 'error',
       'react/no-array-index-key': 'error',
       'react/jsx-key': 'error',
       'react/jsx-no-constructed-context-values': 'warn',
       'react/jsx-props-no-spreading': 'error',
-      'react/no-unknown-property': 'error'
+      'react/no-unknown-property': 'error',
     },
   },
 ]);
